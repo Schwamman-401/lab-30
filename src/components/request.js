@@ -9,12 +9,13 @@ function Request(url, type = 'GET', reqBody = undefined) {
 
 Request.prototype.makeRequest = async function() {
   if (this.type === 'GET') {
-    await request
+    request
       .get(this.url, (err, res, body) => {
         if (err) {
+          console.log('Request Error');
           this.response = err;
         } else {
-          console.log(body);
+          console.log('Got Body!');
           this.response = body;
         }
       })

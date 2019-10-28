@@ -7,8 +7,8 @@ class Aside extends React.Component {
         <h2>History</h2>
         <ul id="history">
           {this.props.requests
-            .map(req => (
-              <p>{req.url}</p>
+            .map((req, i) => (
+              <p key={i}>{`${req.type} ${req.url}`}</p>
             ))
           }
         </ul>

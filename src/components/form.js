@@ -6,7 +6,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      URL: undefined,
+      url: undefined,
       type: 'GET',
       reqBody: undefined,
     }
@@ -22,7 +22,7 @@ class Form extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.newRequest(this.state.URL, this.state.type, this.state.reqBody);
+    this.props.newRequest(this.state.url, this.state.type, this.state.reqBody);
   }
 
   render() {

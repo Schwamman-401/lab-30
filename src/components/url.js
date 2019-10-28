@@ -3,7 +3,7 @@ import React from 'react';
 class URL extends React.Component {
 
   handleInput = e => {
-    this.props.updateState('URL', e.target.value)
+    this.props.updateState('url', e.target.value)
   }
 
   handleRadio = async type => {
@@ -13,7 +13,7 @@ class URL extends React.Component {
   render() {
     return (
       <section>
-        <input type="text" class="wide" name="url" placeholder="URL" onChange={this.handleInput}></input>
+        <input type="text" className="wide" name="url" placeholder="URL" onChange={this.handleInput}></input>
         <div id="methods">
           <label type="radio" name="method" value="get" onClick={() => this.handleRadio('GET')}><span>GET</span></label>
           <label type="radio" name="method" value="post" onClick={() => this.handleRadio('POST')}><span>POST</span></label>

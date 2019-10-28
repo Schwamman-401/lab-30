@@ -13,9 +13,9 @@ class Main extends React.Component {
     }
   }
 
-  newRequest = async (URL, type, reqBody) => {
-    console.log(URL, type, reqBody);
-    let request = new Request(URL, type, reqBody);
+  newRequest = async (url, type, reqBody) => {
+    console.log(url, type, reqBody);
+    let request = new Request(url, type, reqBody);
     await request.makeRequest();
     let newRequests = this.state.requests.concat(request);
     this.setState({ requests: newRequests });
@@ -29,7 +29,7 @@ class Main extends React.Component {
         <Aside 
           requests={this.state.requests}
         />
-        <section class="deck">
+        <section className="deck">
           <Form 
             newRequest={this.newRequest}
           />
