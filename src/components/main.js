@@ -5,10 +5,21 @@ import Response from './response';
 
 class Main extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      requests: [],
+    }
+  }
+
+  
+
   render() {
     return (
       <main>
-        <Aside />
+        <Aside 
+          requests={this.state.requests}
+        />
         <section class="deck">
           <Form />
           <Response />
