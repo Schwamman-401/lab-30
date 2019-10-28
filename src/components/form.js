@@ -3,11 +3,35 @@ import URL from './url';
 import Headers from './headers';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      URL: undefined,
+      type: 'GET',
+      reqBody: undefined,
+    }
+  }
+
+  updateState = async (key, value) => {
+    let obj = {};
+    obj[key] = value;
+    console.log(obj);
+    await this.setState(obj)
+    console.log(this.state);
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.newRequest(this.state.URL, this.state.type, this.state.reqBody);
+  }
+
   render() {
     return (
       <>
-        <form _lpchecked="1">
-          <URL />
+        <form _lpchecked="1" onSubmit={this.handleSubmit}>
+          <URL 
+            updateState={this.updateState}
+          />
           <Headers />
         </form>
       </>
