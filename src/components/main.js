@@ -17,8 +17,9 @@ class Main extends React.Component {
     console.log(url, type, reqBody);
     let request = new Request(url, type, reqBody);
     await request.makeRequest();
-    let newRequests = this.state.requests.concat(request);
-    this.setState({ requests: newRequests });
+    this.setState(state => ({
+      requests: state.requests.concat(request),
+    }));
   }
 
   

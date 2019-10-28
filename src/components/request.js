@@ -9,16 +9,20 @@ function Request(url, type = 'GET', reqBody = undefined) {
 
 Request.prototype.makeRequest = async function() {
   if (this.type === 'GET') {
-    request
-      .get(this.url, (err, res, body) => {
-        if (err) {
-          console.log('Request Error');
-          this.response = err;
-        } else {
-          console.log('Got Body!');
-          this.response = body;
-        }
-      })
+    await new Promise((resolve, reject) => {
+      request
+        .get(this.url, (err, res, body) => {
+          if (err) {
+            console.log('Request Error');
+            this.response = err;
+            resolve(err);
+          } else {
+            console.log('Got Body!');
+            this.response = body;
+            resolve(this);
+          }
+        })
+    });
   }
 }
 
