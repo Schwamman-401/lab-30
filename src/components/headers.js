@@ -1,11 +1,24 @@
 import React from 'react';
 
 class Headers extends React.Component {
+  isDisabled() {
+    if (this.props.type === 'GET' || this.props.type === 'DELETE' ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     return (
       <section className="deck col-2">
         <div id="body">
-          <textarea placeholder="Raw JSON Body" name="requestBody" disabled=""></textarea>
+          <textarea 
+            placeholder="Raw JSON Body" 
+            name="requestBody" 
+            disabled={this.isDisabled()}
+            onChange={(e) => {this.props.updateState('reqBody', e.target.value)}}
+          ></textarea>
         </div>          
         <div id="headers">
           <button>Headers</button>

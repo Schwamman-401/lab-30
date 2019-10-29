@@ -32,7 +32,10 @@ class Form extends React.Component {
           <URL 
             updateState={this.updateState}
           />
-          <Headers />
+          <Headers 
+            updateState={this.updateState}
+            type={this.state.type}
+          />
         </form>
       </>
     );

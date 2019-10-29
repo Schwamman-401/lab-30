@@ -24,6 +24,22 @@ Request.prototype.makeRequest = async function() {
         })
     });
   }
+  if (this.type === 'POST') {
+    await new Promise((resolve, reject) => {
+      request
+        .post(this.url, (err, res, body) => {
+          if (err) {
+            console.log('Request Error');
+            this.response = err;
+            resolve(err);
+          } else {
+            console.log('Got Body!');
+            this.response = body;
+            resolve(this);
+          }
+        })
+    });
+  }
 }
 
 export default Request;
