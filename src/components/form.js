@@ -1,45 +1,51 @@
 import React from 'react';
+import {useState} from 'react';
 import URL from './url';
 import Headers from './headers';
 
-class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url: undefined,
-      type: 'GET',
-      reqBody: undefined,
+export default function Form(props) {
+  const [url, setUrl] = useState(undefined);
+  const [type, setType] = useState('GET');
+  const [reqBody, setReqBody] = useState(undefined);
+  const [username, setUsername] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [bearerToken, setBearerToken] = useState(undefined);
+
+  let updateState = async (key, value) => {
+    switch (key) {
+      case 'url': setUrl(value);
+        break;
+      case 'type': setType(value);
+        break;
+      case 'reqBody': setReqBody(value);
+        break;
+      case 'username': setUsername(value);
+        break;
+      case 'password': setPassword(value);
+        break;
+      case 'bearerToken': setBearerToken(value);
+        break;
+      default: break;
     }
   }
 
-  updateState = async (key, value) => {
-    let obj = {};
-    obj[key] = value;
-    console.log(obj);
-    await this.setState(obj)
-    console.log(this.state);
-  }
-
-  handleSubmit = (e) => {
+  let handleSubmit = (e) => {
     e.preventDefault();
-    this.props.newRequest(this.state.url, this.state.type, this.state.reqBody);
+    props.newRequest(url, type, reqBody);
   }
 
-  render() {
-    return (
-      <>
-        <form _lpchecked="1" onSubmit={this.handleSubmit}>
-          <URL 
-            updateState={this.updateState}
-          />
-          <Headers 
-            updateState={this.updateState}
-            type={this.state.type}
-          />
-        </form>
-      </>
-    );
-  }
+  return (
+    <>
+      <form _lpchecked="1" onSubmit={handleSubmit}>
+        <URL 
+          updateState={updateState}
+          type={type}
+        />
+        <Headers 
+          updateState={updateState}
+          type={type}
+        />
+      </form>
+    </>
+  );
 }
-
-export default Form;
