@@ -1,44 +1,71 @@
 const request = require('request');
+const superagent = require('superagent');
 
 function Request(url, type = 'GET', reqBody = undefined) {
   this.url = url;
   this.type = type;
   this.reqBody = reqBody;
   this.response = undefined;
+  this.error = undefined;
 }
 
 Request.prototype.makeRequest = async function() {
   if (this.type === 'GET') {
-    await new Promise((resolve, reject) => {
-      request
-        .get(this.url, (err, res, body) => {
-          if (err) {
-            console.log('Request Error');
-            this.response = err;
-            resolve(err);
-          } else {
-            console.log('Got Body!');
-            this.response = body;
-            resolve(this);
-          }
-        })
-    });
+    return superagent
+      .get(this.url)
+      .then(response => {
+        this.response = response;
+      })
+      .catch(error => {
+        this.error = error.message;
+      })
   }
+
   if (this.type === 'POST') {
-    await new Promise((resolve, reject) => {
-      request
-        .post(this.url, (err, res, body) => {
-          if (err) {
-            console.log('Request Error');
-            this.response = err;
-            resolve(err);
-          } else {
-            console.log('Got Body!');
-            this.response = body;
-            resolve(this);
-          }
-        })
-    });
+    return superagent
+      .post(this.url)
+      .send(this.reqBody)
+      .then(response => {
+        this.response = response;
+      })
+      .catch(error => {
+        this.error = error.message;
+      });
+  }
+
+  if (this.type === 'PUT') {
+    return superagent
+      .put(this.url)
+      .send(this.reqBody)
+      .then(response => {
+        this.response = response;
+      })
+      .catch(error => {
+        this.error = error.message;
+      });
+  }
+
+  if (this.type === 'PATCH') {
+    return superagent
+      .patch(this.url)
+      .send(this.reqBody)
+      .then(response => {
+        this.response = response;
+      })
+      .catch(error => {
+        this.error = error.message;
+      });
+  }
+
+  if (this.type === 'PATCH') {
+    return superagent
+      .delete(this.url)
+      .then(response => {
+        this.response = response;
+      })
+      .catch(error => {
+        this.error = error.message;
+      });
   }
 }
 

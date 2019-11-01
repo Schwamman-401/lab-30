@@ -1,24 +1,24 @@
 import React from 'react';
+import ReactJson from 'react-json-view'
 
-class Response extends React.Component {
+export default function Response(props){
 
-  renderResponse = () => {
-    if(this.props.lastRequest) {
-      console.log(this.props.lastRequest);
-      return this.props.lastRequest.response;
-    } else {
-      console.log('No Requests!')
-      return '';
-    }
-  }
 
-  render() {
-    return (
-      <div id="json">
-        <p>{this.renderResponse()}</p>
-      </div>
+  if (!props.lastRequest) {
+    return (<div id="json"></div>
     );
   }
-}
 
-export default Response;
+  if (props.lastRequest.error) {
+    return (<div id="json">{props.lastRequest.error}</div>
+    );
+  }
+
+  return (
+    <div id="json">
+      <ReactJson 
+        src={props.lastRequest.response}
+      />
+    </div>
+  );
+}
