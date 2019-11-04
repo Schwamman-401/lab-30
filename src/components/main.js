@@ -1,33 +1,36 @@
 import React from 'react';
+import {useState} from 'react';
 import Aside from './aside';
 import Form from './form';
 import Response from './response';
+import Request from './request';
 
-class Main extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      requests: [],
-    }
+export default function Main() {
+  let [requests, setRequests] = useState([]);
+
+  let newRequest = async (url, type, reqBody) => {
+    console.log(url, type, reqBody);
+    let request = new Request(url, type, reqBody);
+    await request.makeRequest();
+    let newRequests = requests.concat(request);
+    console.log(newRequests)
+    setRequests(newRequests);
   }
 
-  
-
-  render() {
-    return (
-      <main>
-        <Aside 
-          requests={this.state.requests}
+  return (
+    <main>
+      <Aside 
+        requests={requests}
+      />
+      <section className="deck">
+        <Form 
+          newRequest={newRequest}
         />
-        <section class="deck">
-          <Form />
-          <Response />
-        </section>
-      </main>
-    )
-  }
-
+        <Response 
+          lastRequest={requests[requests.length - 1]}
+        />
+      </section>
+    </main>
+  )
 }
-
-export default Main;

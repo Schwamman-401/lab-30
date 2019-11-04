@@ -1,21 +1,26 @@
 import React from 'react';
 
-class URL extends React.Component {
-  render() {
-    return (
-      <section>
-        <input type="text" class="wide" name="url" placeholder="URL"></input>
-        <div id="methods">
-          <label type="radio" name="method" value="get"><span>GET</span></label>
-          <label type="radio" name="method" value="post"><span>POST</span></label>
-          <label type="radio" name="method" value="put"><span>PUT</span></label>
-          <label type="radio" name="method" value="patch"><span>PATCH</span></label>
-          <label type="radio" name="method" value="delete"><span>DELETE</span></label>
-          <laber><button type="submit">Go!</button></laber>
-        </div>
-      </section>
-    );
-  }
-}
+export default function URL(props) {
 
-export default URL;
+  let handleInput = e => {
+    props.updateState('url', e.target.value)
+  }
+
+  let handleRadio = async type => {
+    props.updateState('type', type)
+  }
+
+  return (
+    <section>
+      <input type="text" className="wide" name="url" placeholder="URL" onChange={handleInput}></input>
+      <div id="methods">
+        <label type="radio" name="method" value="get" onClick={() => handleRadio('GET')}><span>GET</span></label>
+        <label type="radio" name="method" value="post" onClick={() => handleRadio('POST')}><span>POST</span></label>
+        <label type="radio" name="method" value="put" onClick={() => handleRadio('PUT')}><span>PUT</span></label>
+        <label type="radio" name="method" value="patch" onClick={() => handleRadio('PATCH')}><span>PATCH</span></label>
+        <label type="radio" name="method" value="delete" onClick={() => handleRadio('DELETE')}><span>DELETE</span></label>
+        <label><button type="submit">Go!</button></label>
+      </div>
+    </section>
+  );
+}
