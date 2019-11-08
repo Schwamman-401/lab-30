@@ -2,9 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import ReduxThunk from 'redux-thunk';
 import { reducer as requests } from './requests-reducer';
+import { reducer as request } from './request-form-reducer';
 
 let reducer = combineReducers({
-  requests
+  requests,
+  request
 });
 
 export default function() {

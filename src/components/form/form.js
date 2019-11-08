@@ -3,20 +3,18 @@ import { connect } from 'react-redux';
 import URL from './url';
 import Headers from './headers';
 import { newRequest } from '../../store/requests-reducer';
+import { setURL, setType, setReqBody } from '../../store/request-form-reducer';
 
 function Form(props) {
-  const { newRequest } = props;
+  const { url, type, reqBody, newRequest, setURL, setType, setReqBody } = props;
 
-  const [url, setUrl] = useState(undefined);
-  const [type, setType] = useState('GET');
-  const [reqBody, setReqBody] = useState(undefined);
   const [username, setUsername] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [bearerToken, setBearerToken] = useState(undefined);
 
   let updateState = async (key, value) => {
     switch (key) {
-      case 'url': setUrl(value);
+      case 'url': setURL(value);
         break;
       case 'type': setType(value);
         break;
@@ -55,13 +53,18 @@ function Form(props) {
 
 function mapStateToProps(state) {
   return {
-    requests: state.requests
+    url: state.request.url,
+    type: state.request.type,
+    reqBody: state.request.reqBody,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     newRequest: (url, type, reqBody) => dispatch(newRequest(url, type, reqBody)),
+    setURL: (url) => dispatch(setURL(url)),
+    setType: (type) => dispatch(setType(type)),
+    setReqBody: (type) => dispatch(setReqBody(type)),
   }
 }
 
