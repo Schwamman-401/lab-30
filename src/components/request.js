@@ -1,18 +1,28 @@
 const request = require('request');
 const superagent = require('superagent');
 
-function Request(url, type = 'GET', reqBody = undefined) {
+function Request(url, type = 'GET', reqBody = undefined, username = undefined, password = undefined, bearerToken = undefined) {
   this.url = url;
   this.type = type;
   this.reqBody = reqBody;
   this.response = undefined;
   this.error = undefined;
+  this.username = username;
+  this.password = password;
+  this.bearerToken = bearerToken
 }
 
 Request.prototype.makeRequest = async function() {
   if (this.type === 'GET') {
-    return superagent
-      .get(this.url)
+    let req = superagent.get(this.url);
+
+    if(this.username && this.password) {
+      req.auth(this.username, this.password);
+    } else if (this.bearerToken) {
+      req.set('Authorization', `Bearer ${this.bearerToken}`);
+    }
+
+    return req
       .then(response => {
         this.response = response;
       })
@@ -22,8 +32,16 @@ Request.prototype.makeRequest = async function() {
   }
 
   if (this.type === 'POST') {
-    return superagent
-      .post(this.url)
+    let req = superagent.post(this.url);
+    console.log(this.bearerToken);
+    if(this.username && this.password) {
+      req.auth(this.username, this.password);
+    } else if (this.bearerToken) {
+      
+      req.set('Authorization', `Bearer ${this.bearerToken}`);
+    }
+
+    return req
       .send(this.reqBody)
       .then(response => {
         this.response = response;
@@ -34,8 +52,15 @@ Request.prototype.makeRequest = async function() {
   }
 
   if (this.type === 'PUT') {
-    return superagent
-      .put(this.url)
+    let req = superagent.put(this.url);
+
+    if(this.username && this.password) {
+      req.auth(this.username, this.password);
+    } else if (this.bearerToken) {
+      req.set('Authorization', `Bearer ${this.bearerToken}`);
+    }
+
+    return req
       .send(this.reqBody)
       .then(response => {
         this.response = response;
@@ -46,8 +71,15 @@ Request.prototype.makeRequest = async function() {
   }
 
   if (this.type === 'PATCH') {
-    return superagent
-      .patch(this.url)
+    let req = superagent.patch(this.url);
+
+    if(this.username && this.password) {
+      req.auth(this.username, this.password);
+    } else if (this.bearerToken) {
+      req.set('Authorization', `Bearer ${this.bearerToken}`);
+    }
+
+    return req
       .send(this.reqBody)
       .then(response => {
         this.response = response;
@@ -57,9 +89,16 @@ Request.prototype.makeRequest = async function() {
       });
   }
 
-  if (this.type === 'PATCH') {
-    return superagent
-      .delete(this.url)
+  if (this.type === 'DELETE') {
+    let req = superagent.delete(this.url);
+
+    if(this.username && this.password) {
+      req.auth(this.username, this.password);
+    } else if (this.bearerToken) {
+      req.set('Authorization', `Bearer ${this.bearerToken}`);
+    }
+
+    return req
       .then(response => {
         this.response = response;
       })

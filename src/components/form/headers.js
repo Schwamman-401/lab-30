@@ -10,7 +10,7 @@ export default function Headers(props) {
   }
 
   let handleInput = e => {
-    props.updateState('url', e.target.value)
+    props.updateState(e.target.name, e.target.value)
   }
 
   return (

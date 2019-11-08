@@ -19,9 +19,11 @@ export function addRequest(item) {
   }
 }
 
-export function newRequest(url, type, reqBody) {
+export function newRequest(url, type, reqBody, username, password, bearerToken) {
+  console.log(bearerToken);
   return dispatch => {  
-    let request = new Request(url, type, reqBody);
+    let request = new Request(url, type, reqBody, username, password, bearerToken);
+    console.log(request);
     request.makeRequest()
       .then( _ => {
         dispatch(addRequest(request));

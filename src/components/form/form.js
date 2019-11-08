@@ -4,13 +4,11 @@ import URL from './url';
 import Headers from './headers';
 import { newRequest } from '../../store/requests-reducer';
 import { setURL, setType, setReqBody } from '../../store/request-form-reducer';
+import { setUsername, setPassword, setBearerToken } from '../../store/auth-form-reducer';
 
 function Form(props) {
-  const { url, type, reqBody, newRequest, setURL, setType, setReqBody } = props;
-
-  const [username, setUsername] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
-  const [bearerToken, setBearerToken] = useState(undefined);
+  const { url, type, reqBody, username, password, bearerToken } = props;
+  const { newRequest, setURL, setType, setReqBody, setUsername, setPassword, setBearerToken } = props;
 
   let updateState = async (key, value) => {
     switch (key) {
@@ -20,11 +18,11 @@ function Form(props) {
         break;
       case 'reqBody': setReqBody(value);
         break;
-      case 'username': setUsername(value);
+      case 'authusername': setUsername(value);
         break;
-      case 'password': setPassword(value);
+      case 'authpassword': setPassword(value);
         break;
-      case 'bearerToken': setBearerToken(value);
+      case 'authtoken': setBearerToken(value);
         break;
       default: break;
     }
@@ -32,7 +30,8 @@ function Form(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    newRequest(url, type, reqBody);
+    console.log(bearerToken);
+    newRequest(url, type, reqBody, username, password, bearerToken);
   }
 
   return (
@@ -56,15 +55,21 @@ function mapStateToProps(state) {
     url: state.request.url,
     type: state.request.type,
     reqBody: state.request.reqBody,
+    username: state.auth.username,
+    password: state.auth.password,
+    bearerToken: state.auth.bearerToken,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    newRequest: (url, type, reqBody) => dispatch(newRequest(url, type, reqBody)),
+    newRequest: (...args) => dispatch(newRequest(...args)),
     setURL: (url) => dispatch(setURL(url)),
     setType: (type) => dispatch(setType(type)),
     setReqBody: (type) => dispatch(setReqBody(type)),
+    setUsername: (username) => dispatch(setUsername(username)),
+    setPassword: (password) => dispatch(setPassword(password)),
+    setBearerToken: (token) => dispatch(setBearerToken(token)),
   }
 }
 
