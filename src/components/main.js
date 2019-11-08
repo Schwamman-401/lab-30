@@ -1,22 +1,12 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
 import Aside from './aside';
-import Form from './form';
+import Form from './form/form';
 import Response from './response';
-import Request from './request';
 
-
-export default function Main() {
-  let [requests, setRequests] = useState([]);
-
-  let newRequest = async (url, type, reqBody) => {
-    console.log(url, type, reqBody);
-    let request = new Request(url, type, reqBody);
-    await request.makeRequest();
-    let newRequests = requests.concat(request);
-    console.log(newRequests)
-    setRequests(newRequests);
-  }
+function Main(props) {
+  const { requests } = props;
+  let lastRequest = requests[requests.length - 1];
 
   return (
     <main>
@@ -25,12 +15,16 @@ export default function Main() {
       />
       <section className="deck">
         <Form 
-          newRequest={newRequest}
         />
         <Response 
-          lastRequest={requests[requests.length - 1]}
+          lastRequest={lastRequest}
         />
       </section>
     </main>
   )
 }
+
+export default connect(
+  state => ({ requests: state.requests }),
+  (dispatch) => {}
+)(Main);

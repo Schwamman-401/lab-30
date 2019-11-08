@@ -1,9 +1,12 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import URL from './url';
 import Headers from './headers';
+import { newRequest } from '../../store/requests-reducer';
 
-export default function Form(props) {
+function Form(props) {
+  const { newRequest } = props;
+
   const [url, setUrl] = useState(undefined);
   const [type, setType] = useState('GET');
   const [reqBody, setReqBody] = useState(undefined);
@@ -31,7 +34,7 @@ export default function Form(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    props.newRequest(url, type, reqBody);
+    newRequest(url, type, reqBody);
   }
 
   return (
@@ -49,3 +52,20 @@ export default function Form(props) {
     </>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    requests: state.requests
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    newRequest: (url, type, reqBody) => dispatch(newRequest(url, type, reqBody)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Form);
