@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { setURL, setType } from '../../store/request-form-reducer';
 import { connect } from 'react-redux';
 
@@ -26,14 +26,23 @@ function URL(props) {
     updateState('type', e.target.value);
   }
 
+  let isSelected = selectedType => {
+    console.log(selectedType);
+    if (selectedType === type) {
+      console.log('Is selected type')
+      return 'selected';
+    }
+    return false;
+  }
+
   return (
     <section>
       <select onChange={handleRadio}>
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="PATCH">PATCH</option>
-        <option value="DELETE">DELETE</option>
+        <option value="GET" selected={isSelected('GET')}>GET</option>
+        <option value="POST" selected={isSelected('POST')}>POST</option>
+        <option value="PUT" selected={isSelected('PUT')}>PUT</option>
+        <option value="PATCH" selected={isSelected('PATCH')}>PATCH</option>
+        <option value="DELETE" selected={isSelected('DELETE')}>DELETE</option>
       </select>
       <input type="text" className="wide" name="url" placeholder="URL" onChange={handleInput}></input>
       <label><button className="submitBtn" type="submit">Go!</button></label>
