@@ -6,7 +6,7 @@ export function reducer(requests = initialState,  action = {}) {
   const { type, payload } = action;
   switch(type) {
     case 'addRequest':
-      return requests.concat(payload);
+      return [payload].concat(requests);
     default:
       return requests;
   }
