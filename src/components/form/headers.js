@@ -4,6 +4,7 @@ import { setURL, setType, setReqBody } from '../../store/request-form-reducer';
 import { setUsername, setPassword, setBearerToken } from '../../store/auth-form-reducer';
 
 function Headers(props) {
+  const { reqBody, username, password, bearerToken } = props;
   const { setURL, setType, setReqBody, setUsername, setPassword, setBearerToken } = props;
 
   let isDisabled = () => {
@@ -32,6 +33,13 @@ function Headers(props) {
     }
   }
 
+  let setValue = (value) => {
+    if (value) {
+      return value;
+    }
+    return undefined;
+  }
+
   let handleInput = e => {
     updateState(e.target.name, e.target.value)
   }
@@ -44,6 +52,7 @@ function Headers(props) {
           name="requestBody" 
           disabled={isDisabled()}
           onChange={handleInput}
+          value={setValue(reqBody)}
         ></textarea>
       </div>          
       <div id="headers">
@@ -53,7 +62,7 @@ function Headers(props) {
             className="authInput" 
             name="authusername" 
             placeholder="Username" 
-            defaultValue="" 
+            value={setValue(username)}
             onChange={handleInput}/>
           <br/>
           <input 
@@ -61,7 +70,7 @@ function Headers(props) {
             name="authpassword" 
             type="authpassword" 
             placeholder="Password" 
-            defaultValue="" 
+            value={setValue(password)}
             onChange={handleInput}/>
         </div>
         <div className="visible-false">
@@ -71,7 +80,7 @@ function Headers(props) {
             className="authInput"
             name="authtoken" 
             placeholder="Bearer Token" 
-            defaultValue="" 
+            value={setValue(bearerToken)}
             onChange={handleInput}/>
         </div>
       </div>
@@ -81,6 +90,10 @@ function Headers(props) {
 
 function mapStateToProps(state) {
   return {
+    reqBody: state.request.reqBody,
+    username: state.auth.username,
+    password: state.auth.password,
+    bearerToken: state.auth.bearerToken,
   };
 }
 

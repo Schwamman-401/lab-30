@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 
 function URL(props) {
-  const { type } = props;
+  const { type, url } = props;
   const { setURL, setType } = props;
 
   let updateState = async (key, value) => {
@@ -35,16 +35,29 @@ function URL(props) {
     return false;
   }
 
+  let setValue = () => {
+    if (url) {
+      return url;
+    }
+    return undefined;
+  }
+
   return (
     <section>
-      <select onChange={handleRadio}>
+      <select className="dropDown" onChange={handleRadio}>
         <option value="GET" selected={isSelected('GET')}>GET</option>
         <option value="POST" selected={isSelected('POST')}>POST</option>
         <option value="PUT" selected={isSelected('PUT')}>PUT</option>
         <option value="PATCH" selected={isSelected('PATCH')}>PATCH</option>
         <option value="DELETE" selected={isSelected('DELETE')}>DELETE</option>
       </select>
-      <input type="text" className="wide" name="url" placeholder="URL" onChange={handleInput}></input>
+      <input 
+        type="text" 
+        className="wide" 
+        name="url" 
+        placeholder="URL"
+        value={setValue()}
+        onChange={handleInput}></input>
       <label><button className="submitBtn" type="submit">Go!</button></label>
     </section>
   );
@@ -53,6 +66,7 @@ function URL(props) {
 function mapStateToProps(state) {
   return {
     type: state.request.type,
+    url: state.request.url,
   };
 }
 

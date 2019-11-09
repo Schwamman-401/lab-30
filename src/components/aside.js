@@ -20,9 +20,13 @@ function Aside(props) {
   }
 
   let formatURL = (url) => {
-    let urlObj = new URL(url);
-    console.log(urlObj.pathname);
-    return urlObj;
+    if (url) {
+      let urlObj = new URL(url);
+      console.log(urlObj.pathname);
+      return urlObj;
+    }
+
+    return 'Undefined';
   }
 
   return(
