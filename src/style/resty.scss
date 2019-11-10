@@ -6,7 +6,24 @@ main {
 textarea {
   display: block;
   height: 10em;
-  width: 100%;
+  width: 95%;
+  outline: none;
+  border-radius: .25rem;
+  padding: .5rem;
+  border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+}
+
+textarea:hover {
+  border-color: #888;
+}
+
+textarea:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
 }
 
 textarea[disabled] {
@@ -23,8 +40,74 @@ strong {
   text-transform: uppercase;
 }
 
+input {
+  border-radius: .25rem;
+}
+
+input:focus {
+  outline: none;
+}
+
 input.wide {
-  width: 100%;
+  padding: .5rem;
+  width: 55%;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+}
+
+input.wide:hover {
+  border-color: #888;
+}
+
+input.wide:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
+}
+
+input.authInput {
+  width: 75%;
+  margin-bottom: .25rem;
+  padding: .25rem;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+}
+
+input.authInput:hover {
+  border-color: #888;
+}
+
+input.authInput:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
+}
+
+.submitBtn {
+  margin: 0;
+  margin-left: 5%;
+	font-size: 16px;
+	font-family: sans-serif;
+	font-weight: 700;
+  color: #444;
+  background-color: #ff7b00a1;
+	padding: .5em 1.5rem;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  border-radius: .5rem;
+  outline: none;
+}
+
+.submitBtn:hover {
+  border-color: #888;
+}
+
+.submitBtn:active {
+  transform: translateY(2px);
 }
 
 #methods {
@@ -39,14 +122,17 @@ input.wide {
 #methods label {
   cursor: pointer;
   margin-right: 1em;
+  background: #ddd;
 }
 
 #methods span {
   padding: 0.25em 1em;
+  display: block;
 }
 
 #methods span:hover {
-  background: #ddd;
+  background: #2d5986;
+  color: #eee;
 }
 
 #methods input[type='radio']:checked + span {
@@ -57,11 +143,109 @@ input.wide {
 
 #json {
   background: #f5f5f5;
-  border: 1px solid #ccc;
   flex: 1;
   flex-basis:0;
-  overflow: auto;
   padding: 1em;
+  border-radius: .5rem;
+  border: 1px solid #aaa;
+  overflow: auto;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+}
+
+
+.historyButton {
+  display: inline-block;
+  border: none;
+  padding: .5rem;
+  margin: .5rem;
+  width: 90%;
+  margin-bottom: 3%;
+  text-decoration: none;
+  color: #000000;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+}
+
+.historyButton div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyButton:hover {
+  background: #2d5986;
+  color: #eee;
+}
+
+.historyButton:active {
+  transform: scale(0.99);
+}
+
+#methods .btnSelected {
+  background: #2d5986;
+  color: #eee;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+.dropDown {
+	display: inline-block;
+	font-size: 16px;
+	font-family: sans-serif;
+	font-weight: 700;
+	color: #444;
+	padding: .5em 1.4em .5em .8em;
+	box-sizing: border-box;
+  margin: 0;
+  margin-right: 3%;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+	border-radius: .5rem;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	  linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+	background-repeat: no-repeat, repeat;
+	background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+  outline: none;
+}
+
+.dropDown::-ms-expand {
+	display: none;
+}
+
+.dropDown:hover {
+	border-color: #888;
+}
+
+.dropDown:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+	box-shadow: 0 0 0 3px -moz-mac-focusring;
+	color: #222;
+	outline: none;
+}
+
+.dropDown option {
+	font-weight:normal;
 }
 
 @media (max-width: 768px) {
@@ -133,6 +317,10 @@ input.wide {
     height: 0px;
     overflow: hidden;
   }
+
+  input.wide {
+    max-width: 55%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -145,6 +333,7 @@ input.wide {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 75%;
   }
   section.deck.col-2 {
     flex-direction: row;
@@ -188,9 +377,5 @@ input.wide {
   #history li:hover {
     color: #000;
     background: #ccc;
-  }
-
-  input.wide {
-    width: 100%;
   }
 }
