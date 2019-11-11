@@ -4,12 +4,11 @@ import { newRequest } from '../store/requests-reducer';
 import { setURL, setType, setReqBody } from '../store/request-form-reducer';
 import { setUsername, setPassword, setBearerToken } from '../store/auth-form-reducer';
 
-function Aside(props) {
+function History(props) {
   let { requests } = props;
   let { newRequest, setURL, setType, setReqBody, setUsername, setPassword, setBearerToken } = props;
 
   let handleClick = (url, type, reqBody, username, password, bearerToken) => {
-    console.log(url);
     setURL(url);
     setType(type);
     setReqBody(reqBody);
@@ -64,6 +63,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  (dispatch) => {},
+  (state) => {},
   mapDispatchToProps
-)(Aside);
+)(History);

@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Aside from './aside';
+import History from './history';
 import Form from './form/form';
 import Response from './response';
 
 function Main(props) {
   const { requests } = props;
-  let lastRequest = requests[requests.length - 1];
+  let lastRequest = requests[0];
 
   return (
     <main>
-      <Aside 
+      <History 
         requests={requests}
       />
       <section className="deck">
